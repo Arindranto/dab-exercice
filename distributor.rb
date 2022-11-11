@@ -3,7 +3,7 @@ def format(number, separator= '.')
     formatted = ''
     digits = number.to_s.split('').reverse
     digits.each_with_index do |value, index|
-        formatted = "#{(index + 1 < digits.size && index % 3 == 2)? separator: ''}#{value}#{formatted}"
+        formatted = "#{value}#{(index != 0 && index % 3 == 0)? separator: ''}#{formatted}"
     end
     return formatted
 end
