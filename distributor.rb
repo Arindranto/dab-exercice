@@ -1,11 +1,14 @@
 def format(number, separator= '.')
     # Returns the formatted number by grouping it by 3 digits with separator
+    return number.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1#{separator}").reverse
+=begin
     formatted = ''
     digits = number.to_s.split('').reverse
     digits.each_with_index do |value, index|
         formatted = "#{value}#{(index != 0 && index % 3 == 0)? separator: ''}#{formatted}"
     end
     return formatted
+=end
 end
 
 class Distributor
