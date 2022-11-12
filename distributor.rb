@@ -11,22 +11,23 @@ def format(number, separator= '.')
 =end
 end
 
+# We use a static class because we don't need any instanciation
 class Distributor
     # A basic money distributor class
     attr_reader :account_balance
 
-    def initialize
-        @account_balance = 5_000_000
+    def self.run(initial_balance= 5_000_000)
+        @@account_balance = initial_balance
         propose
     end
 
-    def show_balance
-        puts "Account balance: Ar #{format(@account_balance)}\n"
+    def self.show_balance
+        puts "Account balance: Ar #{format(@@account_balance)}\n"
     end
 
     private
 
-    def balanced_currency(amount, *currencies)
+    def self.balanced_currency(amount, *currencies)
         currency = Hash.new(0)
         currencies.sort!
         while (amount > 0)
@@ -56,7 +57,7 @@ class Distributor
         return currency # If needed, we return the number
     end
 
-    def get_amount
+    def self.get_amount
         # Returns the amount to withdraw
         loop do
             puts "** Amount to withdraw **"
@@ -92,7 +93,7 @@ class Distributor
         end
     end
 
-    def get_custom_amount(min= 50000)
+    def self.get_custom_amount(min= 50000)
         # gets and return custom amount
         loop do
             print "Enter the amount (minimum: #{format(min)}) or 0 to go back: "
@@ -111,7 +112,7 @@ class Distributor
         end
     end
 
-    def minimum_currency(amount, *currencies)
+    def self.minimum_currency(amount, *currencies)
         currency = Hash.new(0)
         currencies.sort! { |a, b| b - a }   # Descendant sorting
         for cur in currencies
@@ -140,7 +141,7 @@ class Distributor
         return currency # If needed, we return the number
     end
 
-    def print_currency(currency)
+    def self.print_currency(currency)
         # Takes a currency hash and print the values in it
         puts "=" * 50
         amount = 0
@@ -155,7 +156,7 @@ class Distributor
         puts "-" * 50
     end
 
-    def propose
+    def self.propose
         # Proposition in the distributor
         puts "WELCOME!"
         show_balance
@@ -186,7 +187,7 @@ class Distributor
         puts "Have a nice day!"
     end
 
-    def withdraw
+    def self.withdraw
         amount = nil    # Initialization
 
         # Choosing between balanced or minimum
@@ -194,7 +195,7 @@ class Distributor
             amount = get_amount
 
             return if amount == nil # Go back from get_amount
-            if amount > @account_balance
+            if amount > @@account_balance
                 puts "!!! Not enough money in your account"
                 puts "=" * 50
                 next
@@ -219,9 +220,9 @@ class Distributor
             end
         end
 
-        @account_balance -= amount
+        @@account_balance -= amount
         show_balance
     end
 end
 
-distributor = Distributor.new
+Distributor.run
