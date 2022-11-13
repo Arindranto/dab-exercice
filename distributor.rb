@@ -1,14 +1,17 @@
-def format(number, separator= '.')
-    # Returns the formatted number by grouping it by 3 digits with separator
-    return number.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1#{separator}").reverse
+class Integer
+    # Adding format method to Intgers to enable formatting them properly in the console
+    def format(separator= '.')
+        # Returns the formatted number by grouping it by 3 digits with separator
+        return self.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1#{separator}").reverse
 =begin
-    formatted = ''
-    digits = number.to_s.split('').reverse
-    digits.each_with_index do |value, index|
-        formatted = "#{value}#{(index != 0 && index % 3 == 0)? separator: ''}#{formatted}"
-    end
-    return formatted
+        formatted = ''
+        digits = number.to_s.split('').reverse
+        digits.each_with_index do |value, index|
+            formatted = "#{value}#{(index != 0 && index % 3 == 0)? separator: ''}#{formatted}"
+        end
+        return formatted
 =end
+    end
 end
 
 # We use a static class because we don't need any instanciation
@@ -22,7 +25,7 @@ class Distributor
     end
 
     def self.show_balance
-        puts "Account balance: Ar #{format(@@account_balance)}\n"
+        puts "Account balance: Ar #{@@account_balance.format}\n"
     end
 
     private
@@ -61,7 +64,7 @@ class Distributor
         # Returns the amount to withdraw
         loop do
             puts "** Amount to withdraw **"
-            5.times {|i| puts "#{i+1}) Ar #{format(50000 * (i+1))}"}
+            5.times {|i| puts "#{i+1}) Ar #{(50000 * (i+1)).format}"}
             puts '6) Custom amount'
             puts '0) Home'
 
@@ -96,7 +99,7 @@ class Distributor
     def self.get_custom_amount(min= 50000)
         # gets and return custom amount
         loop do
-            print "Enter the amount (minimum: #{format(min)}) or 0 to go back: "
+            print "Enter the amount (minimum: #{min.format}) or 0 to go back: "
             amount = gets.chomp
             
             return if amount == '0'
@@ -147,12 +150,12 @@ class Distributor
         amount = 0
         currency.each do |key, value|
             if value != 0
-                puts "Ar #{format(key[1..].to_i)} * #{value}" 
+                puts "Ar #{(key[1..].to_i).format} * #{value}" 
                 amount += value * key[1..].to_i
             end
         end
         puts "-" * 50
-        puts "Total withdrawal: Ar #{format(amount)}"
+        puts "Total withdrawal: Ar #{(amount).format}"
         puts "-" * 50
     end
 
@@ -200,7 +203,7 @@ class Distributor
                 puts "=" * 50
                 next
             end
-            puts "* Withdrawal of Ar #{format(amount)} *"
+            puts "* Withdrawal of Ar #{amount.format} *"
             puts '1) Minimum currency'
             puts '2) Balanced currency'
             puts '0) Back to amount selection'
