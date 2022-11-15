@@ -60,12 +60,12 @@ class Distributor
         return currency # If needed, we return the number
     end
 
-    def self.get_amount
+    def self.get_amount(choice_number = 16)
         # Returns the amount to withdraw
         loop do
             puts "** Amount to withdraw **"
-            5.times {|i| puts "#{i+1}) Ar #{(50000 * (i+1)).format}"}
-            puts '6) Custom amount'
+            choice_number.times {|i| puts "#{i+1}) Ar #{(50000 * (i+1)).format}"}
+            puts "#{choice_number + 1}) Custom amount"
             puts '0) Home'
 
             print 'Your choice: '
@@ -78,9 +78,9 @@ class Distributor
             if choice.respond_to? :to_i
                 choice = choice.to_i
                 case choice
-                when 1..5
+                when 1..choice_number
                     return choice * 50000
-                when 6
+                when choice_number + 1
                     amount = get_custom_amount
                     unless amount == nil
                         return amount
