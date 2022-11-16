@@ -1,3 +1,9 @@
+=begin
+    Group members:
+        * HARIMALALA Mendrika Henintsoa (IGGLIA n* 02)
+        * ANDRIAMANANA Aina Sariaka (IGGLIA n* 11)
+        * ANDRIANTSOA Safidy Herinirina Arindranto (IGGLIA n* 26)
+=end
 class Integer
     # Adding format method to Intgers to enable formatting them properly in the console
     def format(separator= '.')
