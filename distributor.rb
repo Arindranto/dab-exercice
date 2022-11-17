@@ -84,9 +84,9 @@ class Distributor
             if choice.respond_to? :to_i
                 choice = choice.to_i
                 case choice
-                when 1..5
+                when 1..choice_number
                     return choice * 50000
-                when 6
+                when choice_number + 1
                     amount = get_custom_amount
                     unless amount == nil
                         return amount
