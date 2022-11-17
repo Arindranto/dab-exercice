@@ -26,6 +26,7 @@ class Distributor
     attr_reader :account_balance
 
     def self.run(initial_balance= 5_000_000)
+        system "cls"
         @@account_balance = initial_balance
         propose
     end
@@ -69,6 +70,7 @@ class Distributor
     def self.get_amount(choice_number = 16)
         # Returns the amount to withdraw
         loop do
+            system "cls"
             puts "** Amount to withdraw **"
             choice_number.times {|i| puts "#{i+1}) Ar #{(50000 * (i+1)).format}"}
             puts "#{choice_number + 1}) Custom amount"
@@ -209,6 +211,7 @@ class Distributor
                 puts "=" * 50
                 next
             end
+            system "cls"
             puts "* Withdrawal of Ar #{amount.format} *"
             puts '1) Minimum currency'
             puts '2) Balanced currency'
